@@ -4,6 +4,7 @@
     "dockerfile": "Dockerfile"
   },
   "postCreateCommand": "scripts/setup",
+  "postStartCommand": "sudo /usr/local/share/docker-init.sh true",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
