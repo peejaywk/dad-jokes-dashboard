@@ -16,4 +16,8 @@ docker compose logs -f
 The page is served on http://localhost:8080
 
 ## Notes
-Had to modify the docker compose file to ensure the updater image started first. Otherwise, if nginx starts up before updater it copies files into the shared volume and sets permissions that prevents the updater from writing files. This wasn't an issue when running the container as root. The `nocopy true` stops nginx from copying in its default files. The updater now owns the volume and write its files,
+Had to modify the docker compose file to ensure the updater image started first. Otherwise, if nginx starts up before updater it copies files into the shared volume and sets permissions that prevents the updater from writing files. This wasn't an issue when running the container as root. The `nocopy true` stops nginx from copying in its default files. The updater now owns the volume and write its files.
+
+## ToDo
+- Run the nginx container as non root
+- Scan containers for vulnerabilities using Trivvy
