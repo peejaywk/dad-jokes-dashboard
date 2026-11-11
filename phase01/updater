@@ -11,7 +11,7 @@ while true; do
   JOKE=$(curl -s "$API_URL" -H "Accept: text/plain")
 
   # Generate HTML
-  cat > "$HTML_FILE" << EOF
+  cat >"$HTML_FILE" <<EOF
 <!DOCTYPE html>
 <html>
 <head>

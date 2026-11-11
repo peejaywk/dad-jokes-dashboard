@@ -10,9 +10,16 @@ services:
   web:
     image: nginx:1.28
     ports:
-      - "22111:80"
+      - "8080:80"
     volumes:
-      - html:/usr/share/nginx/html:ro
+      - type: volume
+        source: html
+        target: /usr/share/nginx/html
+        read_only: true
+        volume:
+          nocopy: true
+    depends_on:
+      - updater
     restart: unless-stopped
 
 volumes:
