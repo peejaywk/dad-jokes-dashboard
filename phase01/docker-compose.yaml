@@ -1,8 +1,6 @@
 services:
   updater:
-    build:
-      context: .
-      dockerfile: Dockerfile.updater
+    image: updater:01
     volumes:
       - html:/html
     restart: unless-stopped
