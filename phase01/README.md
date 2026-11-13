@@ -7,7 +7,7 @@
 
 ```bash
 # To build the updater containers
-docker build -t updater:01
+docker build -t updater:01 .
 
 # To scan the container for vulnerabilities using [Trivy](https://trivy.dev/)
 TAG=01 && trivy image --format table --severity CRITICAL,HIGH updater:$TAG
