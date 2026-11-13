@@ -8,9 +8,9 @@ services:
     restart: unless-stopped
 
   web:
-    image: nginx:1.28
+    image: nginx/nginx-unprivileged:alpine
     ports:
-      - "8080:80"
+      - "8080:8080"
     volumes:
       - type: volume
         source: html
