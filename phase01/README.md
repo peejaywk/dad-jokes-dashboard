@@ -9,8 +9,9 @@
 # To build the updater containers
 docker build -t updater:01 .
 
-# To scan the container for vulnerabilities using [Trivy](https://trivy.dev/)
+# To scan the containers for vulnerabilities using [Trivy](https://trivy.dev/)
 TAG=01 && trivy image --format table --severity CRITICAL,HIGH updater:$TAG
+trivy image --format table --severity CRITICAL,HIGH nginx/nginx-unprivileged:alpine
 
 # To run the application
 docker compose up -d
