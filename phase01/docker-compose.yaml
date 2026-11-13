@@ -19,6 +19,13 @@ services:
     depends_on:
       - updater
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
 
 volumes:
   html:
