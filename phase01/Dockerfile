@@ -1,9 +1,8 @@
-FROM ubuntu:24.04
+FROM alpine:3.24
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl ca-certificates && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir /html && chown ubuntu:ubuntu /html && chmod 755 /html
+RUN apk add --no-cache bash curl ca-certificates && \
+    adduser -D -u 1000 updater && \
+    mkdir /html && chown updater:updater /html && chmod 755 /html
 
 WORKDIR /app
 COPY updater .
