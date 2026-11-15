@@ -3,7 +3,7 @@
 - Creates two containers with one shared volume. 
 - One container is running the updater script to fetch the dad jokes from the api and create the html page. It fetches a new joke every 30 seconds. The html is written into the shared html volume.
 - The second container is running unpriveleged nginx and this is serving the html page that is in the shared volume.
-- The updater container is running as the ubuntu user that ships with the container. It does not have root access.
+- The updater container is from alpine and is running as the user 'updater' that is created during the build process. It does not have root access.
 
 ```bash
 # To build the updater containers
@@ -18,6 +18,9 @@ docker compose up -d
 
 # Inspect the logs
 docker compose logs -f
+
+# The build and scan can also be run using the build-scan.sh script
+TAG=01 ./build-scan.sh
 ```
 
 The page is served on http://localhost:8080
