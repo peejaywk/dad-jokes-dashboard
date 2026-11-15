@@ -13,8 +13,6 @@ services:
       start_interval: 5s
   web:
     image: nginx/nginx-unprivileged:alpine
-    ports:
-      - "8080:8080"
     volumes:
       - type: volume
         source: html
