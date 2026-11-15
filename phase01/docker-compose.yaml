@@ -4,7 +4,13 @@ services:
     volumes:
       - html:/html
     restart: unless-stopped
-
+    healthcheck:
+      test: ["CMD-SHELL", 'test -n "$$(find /html/index.html -mmin -2)"']
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
   web:
     image: nginx/nginx-unprivileged:alpine
     ports:
