@@ -1,0 +1,43 @@
+services:
+  updater:
+    image: updater:01
+    volumes:
+      - html:/html
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", 'test -n "$$(find /html/index.html -mmin -2)"']
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+  web:
+    image: nginx/nginx-unprivileged:alpine
+    ports:
+      - "8080:8080"
+    volumes:
+      - type: volume
+        source: html
+        target: /usr/share/nginx/html
+        read_only: true
+        volume:
+          nocopy: true
+    depends_on:
+      - updater
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+  cloudflaretunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+
+volumes:
+  html:
