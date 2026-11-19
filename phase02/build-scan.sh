@@ -21,4 +21,4 @@ echo "====> Scanning nginx/nginx-unprivileged:alpine <===="
 trivy image --format table --severity CRITICAL,HIGH nginx/nginx-unprivileged:alpine
 
 echo "====> Scanning cloudflare/cloudflared:latest <===="
-trivy image --format table --severity CRITICAL,HIGH cloudflare/cloudflared:2026:11.0
+trivy image --format table --severity CRITICAL,HIGH cloudflare/cloudflared:2026.11.0

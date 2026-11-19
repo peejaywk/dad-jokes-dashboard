@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dad Joke Dashboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .joke {
+      font-size: 1.5em;
+      margin: 40px 0;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+    }
+    .meta {
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Dad Joke Dashboard</h1>
+  <div id="joke" class="joke">Loading a joke...</div>
+  <p id="updated" class="meta">Updated: $(date)</p>
+  <p class="meta">Refreshes every 30 seconds</p>
+
+  <script>
+    const REFRESH_SECONDS = 30;
+    const jokeEl = document.getElementById("joke");
+    const updatedEl = document.getElementById("updated");
+
+    async function loadJoke() {
+      try {
+        // Same origin: nginx forwards /api/... to the backend container.
+        const response = await fetch("/api/joke", { cache: "no-store" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        jokeEl.textContent = data.joke;   // textContent, so a joke can't inject HTML
+        updatedEl.textContent = "Updated: " + new Date().toLocaleString();
+      } catch (err) {
+        console.error("Could not load a joke:", err);
+        updatedEl.textContent = "Could not reach the joke API, trying again soon";
+      }
+    }
+
+    loadJoke();
+    setInterval(loadJoke, REFRESH_SECONDS * 1000);
+  </script>
+
+</body>
+</html>
+
+
