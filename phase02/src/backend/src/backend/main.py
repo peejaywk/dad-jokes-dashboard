@@ -11,6 +11,8 @@ from .config import (
 
 JOKE_URL = "https://icanhazdadjoke.com/"
 
+last_joke = {}
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -43,10 +45,19 @@ async def health():
 
 @app.get("/joke")
 async def joke():
-    response = await app.state.client.get(JOKE_URL)
+    global last_joke  # want to update the global variable
 
-    data = response.json()
-    return data
+    try:
+        response = await app.state.client.get(JOKE_URL)
+        response.raise_for_status()  # treat 4xx/5xx as an error
+        data = response.json()
+        # Success: save it as the new "last good joke", then return it.
+        last_joke = {"joke": data["joke"], "source": "live"}
+        return last_joke
+
+    except (httpx.HTTPError, ValueError, KeyError):
+        # Fall back to the last joke we managed to get.
+        return {"joke": last_joke["joke"], "source": "cache"}
 
 
 def main():
