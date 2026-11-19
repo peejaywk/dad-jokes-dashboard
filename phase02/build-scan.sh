@@ -11,13 +11,16 @@ TAG="${TAG:-01}"
 # Run from this script's folder so the Docker build finds the Dockerfile.
 cd "$(dirname "$0")"
 
-echo "====> Building updater:$TAG <===="
-docker build -t "updater:$TAG" .
+#echo "====> Building updater:$TAG <===="
+#docker build -t "updater:$TAG" .
 
-echo "====> Scanning updater:$TAG <===="
-trivy image --format table --severity CRITICAL,HIGH "updater:$TAG"
+echo "====> Scanning frontend <===="
+trivy image --format table --severity CRITICAL,HIGH "dad-jokes-frontend:dev"
 
-echo "====> Scanning nginx/nginx-unprivileged:alpine <===="
+echo "====> Scanning backend <===="
+trivy image --format table --severity CRITICAL,HIGH "dad-jokes-backend:dev"
+
+echo "====> Scanning nginx-unprivileged <===="
 trivy image --format table --severity CRITICAL,HIGH nginx/nginx-unprivileged:alpine
 
 echo "====> Scanning cloudflare/cloudflared:latest <===="
