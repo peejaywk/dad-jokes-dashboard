@@ -13,7 +13,7 @@
 - The docker compose file will build the frontend and backend containers and also spin up the nginx and cloudflared containers.
 
 ```
-docker compose up -d
+docker compose up -d --build
 ```
 
 - To build and scan the containers for vulnerabilities run the following command
@@ -21,3 +21,8 @@ docker compose up -d
 ```
 ./build-scan.sh
 ```
+
+## Notes on the Python fetcher API
+
+- Includes a jokes cache so a joke can always be returned even when the upstream API is down.
+- The cache ensures that the upstream API is only called every 25 seconds even if there are a lot of people visiting the site.

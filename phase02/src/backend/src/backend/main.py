@@ -1,17 +1,19 @@
 from contextlib import asynccontextmanager
 import uvicorn
 import httpx
-from fastapi import FastAPI
+import time
+from fastapi import FastAPI, HTTPException
 
 from .config import (
     APP_NAME,
     API_HOST,
     API_PORT,
+    CACHE_SECONDS,
 )
 
 JOKE_URL = "https://icanhazdadjoke.com/"
 
-last_joke = {}
+cache = {"joke": None, "fetched_at": 0.0}
 
 
 @asynccontextmanager
@@ -45,24 +47,32 @@ async def health():
 
 @app.get("/joke")
 async def joke():
-    global last_joke  # want to update the global variable
+    age = time.monotonic() - cache["fetched_at"]
 
+    # Joke is still fresh so answer from memory, no upstream call required.
+    if cache["joke"] and age < CACHE_SECONDS:
+        return {"joke": cache["joke"], "source": "cache", "age_seconds": int(age)}
+
+    # Joke is too old, or empty, so fetch a new one.
     try:
         response = await app.state.client.get(JOKE_URL)
         response.raise_for_status()  # treat 4xx/5xx as an error
-        data = response.json()
-        # Success: save it as the new "last good joke", then return it.
-        last_joke = {"joke": data["joke"], "source": "live"}
-        return last_joke
+        cache["joke"] = response.json()["joke"]
+        cache["fetched_at"] = time.monotonic()
+        return {"joke": cache["joke"], "source": "live"}
 
+    # Upstream failed. Serve the old joke if we have one, else 503
     except (httpx.HTTPError, ValueError, KeyError):
-        # Fall back to the last joke we managed to get.
-        return {"joke": last_joke["joke"], "source": "cache"}
+        if cache["joke"]:
+            return {"joke": cache["joke"], "source": "stale"}
+        raise HTTPException(
+            status_code=503, details="Joke API unavailable, nothing cached yet"
+        )
 
 
 def main():
     """Entry point for running the API server"""
-    uvicorn.run("backend.main:app", host=API_HOST, port=API_PORT, reload=True)
+    uvicorn.run("backend.main:app", host=API_HOST, port=API_PORT, reload=False)
 
 
 if __name__ == "__main__":
