@@ -1,18 +1,15 @@
 #!/bin/bash
-# Build the updater image and scan both containers for vulnerabilities with Trivy.
-# Usage: ./scan.sh          (uses tag 01)
-#        TAG=02 ./scan.sh   (uses another tag)
+# Build the container images and scan both containers for vulnerabilities with Trivy.
+# Usage: ./build-scan.sh
 
 # This will stop the script if the build fails.
 set -euo pipefail
 
-TAG="${TAG:-01}"
-
 # Run from this script's folder so the Docker build finds the Dockerfile.
 cd "$(dirname "$0")"
 
-#echo "====> Building updater:$TAG <===="
-#docker build -t "updater:$TAG" .
+#echo "====> Build frontend and backend containers <===="
+docker compose build
 
 echo "====> Scanning frontend <===="
 trivy image --format table --severity CRITICAL,HIGH "dad-jokes-frontend:dev"
@@ -23,5 +20,5 @@ trivy image --format table --severity CRITICAL,HIGH "dad-jokes-backend:dev"
 echo "====> Scanning nginx-unprivileged <===="
 trivy image --format table --severity CRITICAL,HIGH nginx/nginx-unprivileged:alpine
 
-echo "====> Scanning cloudflare/cloudflared:latest <===="
+echo "====> Scanning cloudflare/cloudflared:2026.11.0 <===="
 trivy image --format table --severity CRITICAL,HIGH cloudflare/cloudflared:2026.11.0
