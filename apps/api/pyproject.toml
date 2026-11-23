@@ -1,0 +1,18 @@
+[project]
+name = "dad-jokes-dashboard-backend"
+version = "0.0.0"
+description = "Backend API for the dad jokes dashboard"
+readme = "README.md"
+authors = [{ name = "peejaywk", email = "test@gmail.com" }]
+requires-python = ">=3.13"
+dependencies = ["fastapi>=0.163.1", "httpx>=0.28.1", "uvicorn>=0.54.0"]
+
+[project.scripts]
+dad-jokes-dashboard-backend-api = "backend.main:main"
+
+[tool.uv.build-backend]
+module-name = "backend"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
