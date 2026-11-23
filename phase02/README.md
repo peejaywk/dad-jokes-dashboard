@@ -1,28 +1,29 @@
-# Phase 2
+# Phase 2 - Public with TLS
 
-## Objectives
+## What it contains
 
-- Replace the bash updater script with a Python fetcher API using FastAPI.
-- Create a Cloudflare tunnel with a public host name so the dad jokes dashboard can be accessed securely from the internet without opening any inbound ports.
-- Add the Cloudflare service to the docker compose build file.
-- Ensure the Cloudflare tunnel token is only stored locally and not commit to this repository.
-- Create a new frontend deployment to access the Python FastAPI to retrieve and display the jokes.
+- **backend**: FastAPI on port 8080 (`/`, `\health`, `/joke`. Runs as a non root user. Caches a joke for 25s and will fall back to the last good joke if the upstream API is down.
+- **web**: nginx-unprivileged serving a static page that calls the FastAPI every 30s.
+- **cloudflaretunnel**: remotely managed tunnel. No inbound ports are open.
 
 ## Build Notes
 
 - The docker compose file will build the frontend and backend containers and also spin up the nginx and cloudflared containers.
 
-```
+```bash
 docker compose up -d --build
 ```
 
 - To build and scan the containers for vulnerabilities run the following command
 
-```
+```bash
 ./build-scan.sh
 ```
 
-## Notes on the Python fetcher API
+## Config
 
-- Includes a jokes cache so a joke can always be returned even when the upstream API is down.
-- The cache ensures that the upstream API is only called every 25 seconds even if there are a lot of people visiting the site.
+| Variable | Where | Default | Description |
+| --- | --- | --- | --- |
+| `TUNNEL_TOKEN` | `.env` (never comitted) | none | cloudflared auth |
+| `CACHE_SECONDS` | backend | 25 | joke cache TTL |
+| `TUNNEL_METRICS` | cloudflaretunnel | 127.0.0.1:20241 | metrics + healthcheck |
