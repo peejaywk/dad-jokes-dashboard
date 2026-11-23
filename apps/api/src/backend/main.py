@@ -24,7 +24,7 @@ async def lifespan(app: FastAPI):
         timeout=5.0,  # don't let a slow joke API hang our API
         headers={
             "Accept": "application/json",  # ask for JSON instead of HTML
-            "User-Agent": "my-joke-api (https://github.com/yourname/repo)",
+            "User-Agent": "dad-jokes-dashboard (https://github.com/peejaywk/dad-jokes-dashboard)",
         },
     )
     yield
@@ -66,7 +66,7 @@ async def joke():
         if cache["joke"]:
             return {"joke": cache["joke"], "source": "stale"}
         raise HTTPException(
-            status_code=503, details="Joke API unavailable, nothing cached yet"
+            status_code=503, detail="Joke API unavailable, nothing cached yet"
         )
 
 
