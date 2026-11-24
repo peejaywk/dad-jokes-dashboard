@@ -1,13 +1,14 @@
-from contextlib import asynccontextmanager
-import uvicorn
-import httpx
 import time
+from contextlib import asynccontextmanager
+
+import httpx
+import uvicorn
 from fastapi import FastAPI, HTTPException
 
 from .config import (
-    APP_NAME,
     API_HOST,
     API_PORT,
+    APP_NAME,
     CACHE_SECONDS,
 )
 
