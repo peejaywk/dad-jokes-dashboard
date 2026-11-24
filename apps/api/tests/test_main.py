@@ -1,7 +1,8 @@
 import httpx
 import pytest
-from backend import main
 from fastapi.testclient import TestClient
+
+from backend import main
 
 JOKE = "I'm reading a book on anti-gravity. I can't put it down."
 
