@@ -30,8 +30,7 @@ jobs:
 
       - name: Lint
         run: |
-          uv run ruff check --output-format=github src tests
-          uv run ruff format --check --diff src tests
-
+          uv run ruff check --output-format=github --target-version=py313 src tests
+          uv run ruff format --diff --check --target-version=py313 src tests
       - name: Test
         run: uv run pytest -v
