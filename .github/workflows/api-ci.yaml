@@ -41,14 +41,14 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
-          path: ./src/backend/coverage.xml
+          path: apps/api/coverage.xml
           retention-days: 7
         if: ${{ always() }}
 
       - name: Coverage Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: ./src/backend/coverage.xml
+          filename: apps/api/coverage.xml
           badge: true
           format: markdown
           output: both
