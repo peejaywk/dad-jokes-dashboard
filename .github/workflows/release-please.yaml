@@ -12,6 +12,6 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          token: "${{ secrets.DAD_JOKES_TOKEN }}"
+          token: "${{ secrets.DAD_JOKE_TOKEN }}"
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
