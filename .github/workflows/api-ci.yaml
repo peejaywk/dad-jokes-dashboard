@@ -64,12 +64,12 @@ jobs:
         run: docker build -t dad-jokes-api:latest .
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@v0.36.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           image-ref: "dad-jokes-api:latest"
           format: "table"
-          exit-code: "0"
-          # exit-code: "1" # Fail the workflow if vulnerabilities are found
+          #exit-code: "0"
+          exit-code: "1" # Fail the workflow if vulnerabilities are found
           ignore-unfixed: true
           vuln-type: "os,library"
           severity: "CRITICAL,HIGH"
