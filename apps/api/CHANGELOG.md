@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/peejaywk/dad-jokes-dashboard/compare/api-v0.1.0...api-v0.2.0) (2026-11-25)
+
+
+### Features
+
+* **backend:** build the container and push to the ghcr ([#10](https://github.com/peejaywk/dad-jokes-dashboard/issues/10)) ([6c94601](https://github.com/peejaywk/dad-jokes-dashboard/commit/6c946015a0c6c55f493533df7feb5b693a0b2bfc))
+
 ## 0.1.0 (2026-11-25)
 
 
