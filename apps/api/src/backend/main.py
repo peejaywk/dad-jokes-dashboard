@@ -16,6 +16,8 @@ JOKE_URL = "https://icanhazdadjoke.com/"
 
 cache = {"joke": None, "fetched_at": 0.0}
 
+# This is a comment to trigger the CI pipeline
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
