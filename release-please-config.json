@@ -2,7 +2,7 @@
   "packages": {
     "apps/api": {
       "release-type": "python",
-      "package-name": "backend",
+      "package-name": "dad-jokes-dashboard-backend",
       "component": "api",
       "include-component-in-tag": true,
       "changelog-path": "CHANGELOG.md",
