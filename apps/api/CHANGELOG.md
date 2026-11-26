@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/peejaywk/dad-jokes-dashboard/compare/api-v0.3.0...api-v0.3.1) (2026-11-26)
+
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/astral-sh/uv docker tag to v0.13.10 ([#23](https://github.com/peejaywk/dad-jokes-dashboard/issues/23)) ([db3e242](https://github.com/peejaywk/dad-jokes-dashboard/commit/db3e242ce1ef1984a2f50c82bf06dead00633f9b))
+* **deps:** update python ([#24](https://github.com/peejaywk/dad-jokes-dashboard/issues/24)) ([7601872](https://github.com/peejaywk/dad-jokes-dashboard/commit/7601872cae35e65f8776435958ed0cbdd2097dae))
+
 ## [0.3.0](https://github.com/peejaywk/dad-jokes-dashboard/compare/api-v0.2.0...api-v0.3.0) (2026-11-26)
 
 
