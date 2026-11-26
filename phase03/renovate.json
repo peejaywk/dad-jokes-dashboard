@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "timezone": "Europe/London",
+  "labels": [
+    "dependencies"
+  ],
+  "ignorePaths": [
+    "phase01/**",
+    "phase02/**"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "github actions"
+    },
+    {
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchFileNames": [
+        "apps/**"
+      ],
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchDepNames": [
+        "python"
+      ],
+      "groupName": "python",
+      "semanticCommitType": "fix"
+    }
+  ]
+}
