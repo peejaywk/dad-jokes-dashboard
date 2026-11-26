@@ -1,4 +1,5 @@
 {
+  "separate-pull-requests": true,
   "packages": {
     "apps/api": {
       "release-type": "python",
@@ -13,6 +14,13 @@
           "jsonpath": "$.package[?(@.name.value=='dad-jokes-dashboard-backend')].version"
         }
       ]
+    },
+    "apps/web": {
+      "release-type": "simple",
+      "package-name": "dad-jokes-web",
+      "component": "web",
+      "include-component-in-tag": true,
+      "changelog-path": "CHANGELOG.md"
     }
   }
 }
