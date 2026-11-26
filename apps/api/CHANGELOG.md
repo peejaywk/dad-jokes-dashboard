@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/peejaywk/dad-jokes-dashboard/compare/api-v0.2.0...api-v0.3.0) (2026-11-26)
+
+
+### Features
+
+* **app:** add api and web version numbers to the webpage ([#15](https://github.com/peejaywk/dad-jokes-dashboard/issues/15)) ([f9bbc54](https://github.com/peejaywk/dad-jokes-dashboard/commit/f9bbc5469c3ef7665bde192d4940ec596e4662b3))
+
 ## [0.2.0](https://github.com/peejaywk/dad-jokes-dashboard/compare/api-v0.1.0...api-v0.2.0) (2026-11-25)
 
 

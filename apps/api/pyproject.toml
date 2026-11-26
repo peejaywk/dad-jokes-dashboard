@@ -1,6 +1,6 @@
 [project]
 name = "dad-jokes-dashboard-backend"
-version = "0.2.0"
+version = "0.3.0"
 description = "Backend API for the dad jokes dashboard"
 readme = "README.md"
 authors = [{ name = "peejaywk", email = "test@gmail.com" }]
