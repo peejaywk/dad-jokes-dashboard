@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/peejaywk/dad-jokes-api:0.2.0
+    image: ghcr.io/peejaywk/dad-jokes-api:0.3.0
     restart: unless-stopped
     healthcheck:
       test:
@@ -17,7 +17,7 @@ services:
       start_interval: 5s
 
   web:
-    image: ghcr.io/peejaywk/dad-jokes-web:0.2.0
+    image: ghcr.io/peejaywk/dad-jokes-web:0.3.0
     restart: unless-stopped
     depends_on:
       backend:
