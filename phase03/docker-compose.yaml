@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/peejaywk/dad-jokes-api:0.3.0
+    image: ghcr.io/peejaywk/dad-jokes-api:0.3.1
     restart: unless-stopped
     healthcheck:
       test:
