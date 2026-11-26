@@ -1,6 +1,6 @@
 FROM python:3.13-alpine AS builder
 
-COPY --from=ghcr.io/astral-sh/uv:0.13.9 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.13.10 /uv /uvx /bin/
 
 # Change the working directory to the `app` directory
 WORKDIR /app
