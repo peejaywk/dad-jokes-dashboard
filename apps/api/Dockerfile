@@ -1,4 +1,4 @@
-FROM python:3.13-alpine AS builder
+FROM python:3.15-alpine AS builder
 
 COPY --from=ghcr.io/astral-sh/uv:0.13.10 /uv /uvx /bin/
 
@@ -18,7 +18,7 @@ COPY . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
   uv sync --locked --no-editable --no-dev
 
-FROM python:3.13-alpine
+FROM python:3.15-alpine
 
 # Create a non-root user and group with specific IDs
 RUN addgroup -S -g 1000 app && adduser -S -u 1000 -G app app
