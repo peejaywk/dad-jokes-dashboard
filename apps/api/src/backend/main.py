@@ -1,5 +1,6 @@
 import time
 from contextlib import asynccontextmanager
+from importlib.metadata import version as pkg_version
 
 import httpx
 import uvicorn
@@ -14,9 +15,9 @@ from .config import (
 
 JOKE_URL = "https://icanhazdadjoke.com/"
 
-cache = {"joke": None, "fetched_at": 0.0}
+API_VERSION = pkg_version("dad-jokes-dashboard-backend")
 
-# This is a comment to trigger the CI pipeline
+cache = {"joke": None, "fetched_at": 0.0}
 
 
 @asynccontextmanager
@@ -35,7 +36,7 @@ async def lifespan(app: FastAPI):
     await app.state.client.aclose()
 
 
-app = FastAPI(title=APP_NAME, lifespan=lifespan)
+app = FastAPI(title=APP_NAME, version=API_VERSION, lifespan=lifespan)
 
 
 @app.get("/")
@@ -46,6 +47,11 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
+
+
+@app.get("/version")
+async def version():
+    return {"version": API_VERSION}
 
 
 @app.get("/joke")

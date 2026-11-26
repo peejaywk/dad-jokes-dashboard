@@ -1,3 +1,5 @@
+from importlib.metadata import version as pkg_version
+
 import httpx
 import pytest
 from fastapi.testclient import TestClient
@@ -39,3 +41,9 @@ def test_joke_live_then_cache(client):
     second = client.get("/joke").json()
     assert first == {"joke": JOKE, "source": "live"}
     assert second["source"] == "cache"
+
+
+def test_version(client):
+    r = client.get("/version")
+    assert r.status_code == 200
+    assert r.json() == {"version": pkg_version("dad-jokes-dashboard-backend")}

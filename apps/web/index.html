@@ -35,6 +35,20 @@
     const jokeEl = document.getElementById("joke");
     const updatedEl = document.getElementById("updated");
 
+    async function loadVersions() {
+      const get = async (url, pick) => {
+        try {
+          const r = await fetch(url, { cache: "no-store" });
+          return r.ok ? pick(r) : "unknown";
+        } catch { return "unknown"; }
+      };
+      const web = await get("/version.txt", async r => (await r.text()).trim());
+      const api = await get("/api/version", async r => (await r.json()).version);
+      document.getElementById("versions").textContent = `web: v${web} · api: v${api}`;
+    }
+
+    loadVersions();
+
     async function loadJoke() {
       try {
         // Same origin: nginx forwards /api/... to the backend container.
